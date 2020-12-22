@@ -28,13 +28,13 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-    result <- reactiveVal()
+    res <- reactiveVal()
     
-    executeButtonServer("run1", result = result, executeFunction = run_analysis, database = "Database 1")
-    executeButtonServer("run2", result = result, executeFunction = run_analysis, database = "Database 2")
-    executeButtonServer("run3", result = result, executeFunction = run_analysis, database = "Database 3")
+    executeButtonServer("run1", res~run_analysis("Database 1"))
+    executeButtonServer("run2", res~run_analysis("Database 2"))
+    executeButtonServer("run3", res~run_analysis("Database 3"))
     
-    output$table <- DT::renderDataTable(DT::datatable(result()))
+    output$table <- DT::renderDataTable(DT::datatable(res()))
 }
 
 shinyApp(ui = ui, server = server)
